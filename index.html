@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwagAI - Transform Your Style with AI Magic ✨</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Landing Screen -->
+    <div id="landing-screen" class="screen active">
+        <div class="landing-hero">
+            <div class="logo-container">
+                <h1 class="app-logo">
+                    <i class="fas fa-magic sparkle"></i>
+                    SwagAI
+                </h1>
+                <p class="tagline">Your AI Style Assistant</p>
+            </div>
+            <div class="hero-content">
+                <h2>Transform your style with AI magic ✨</h2>
+                <p class="hero-description">Upload your clothes, get perfect outfit suggestions, and discover your personal style like never before!</p>
+                <button class="btn btn--primary btn--lg get-started-btn" onclick="showScreen('dashboard')">
+                    <i class="fas fa-rocket"></i>
+                    Start Your Style Journey
+                </button>
+            </div>
+            <div class="hero-features">
+                <div class="feature">
+                    <i class="fas fa-camera"></i>
+                    <span>Snap & Upload</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-magic"></i>
+                    <span>AI Magic</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-heart"></i>
+                    <span>Perfect Outfits</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="screen">
+        <header class="app-header">
+            <div class="container">
+                <div class="header-content">
+                    <h1 class="app-logo-small">
+                        <i class="fas fa-magic"></i>
+                        SwagAI
+                    </h1>
+                    <button class="btn btn--outline btn--sm" onclick="showScreen('landing-screen')">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <!-- Welcome Message -->
+            <div class="welcome-section" id="welcome-section">
+                <div class="welcome-card">
+                    <div class="welcome-icon">
+                        <i class="fas fa-sparkles"></i>
+                    </div>
+                    <h3>Welcome to your style journey! 🌟</h3>
+                    <p id="dashboard-message">Ready to build a wardrobe that works perfectly for your lifestyle?</p>
+                    <div class="progress-indicator" id="progress-indicator">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <span class="progress-text" id="progress-text">Get started by adding your first item!</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="closet-count">0</div>
+                    <div class="stat-label">Items in Closet</div>
+                    <div class="stat-icon"><i class="fas fa-tshirt"></i></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="outfit-count">0</div>
+                    <div class="stat-label">Outfits Created</div>
+                    <div class="stat-icon"><i class="fas fa-magic"></i></div>
+                </div>
+            </div>
+
+            <div class="action-grid">
+                <button class="action-card primary-action" onclick="showScreen('add-clothes')">
+                    <div class="action-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h3>Add Your First Item! 📸</h3>
+                    <p>Take photos or upload images of your clothing items to get started</p>
+                    <div class="action-sparkle"></div>
+                </button>
+
+                <button class="action-card" onclick="showScreen('outfit-generator')" id="outfit-generator-card" disabled>
+                    <div class="action-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>Get Outfit Suggestions</h3>
+                    <p>Let AI create perfect outfits based on your plans</p>
+                    <div class="disabled-overlay">Add clothes first! ✨</div>
+                </button>
+
+                <button class="action-card" onclick="showScreen('wardrobe')" id="wardrobe-card">
+                    <div class="action-icon">
+                        <i class="fas fa-closet"></i>
+                    </div>
+                    <h3>My Digital Closet</h3>
+                    <p>Browse and manage all your clothing items</p>
+                </button>
+            </div>
+
+            <!-- Tips Section -->
+            <div class="tips-section" id="tips-section">
+                <div class="tip-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <span id="current-tip">💡 Tip: Upload items from different categories for more outfit variety!</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Clothes Screen -->
+    <div id="add-clothes" class="screen">
+        <header class="app-header">
+            <div class="container">
+                <div class="header-content">
+                    <button class="btn btn--outline btn--sm" onclick="showScreen('dashboard')">
+                        <i class="fas fa-arrow-left"></i>
+                        Back
+                    </button>
+                    <h2>Add Clothes to Your Closet</h2>
+                    <div></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <!-- Upload Options -->
+            <div class="upload-options" id="upload-options">
+                <div class="upload-card">
+                    <h3>How would you like to add your clothes?</h3>
+                    <div class="upload-buttons">
+                        <button class="btn btn--primary btn--lg upload-btn" onclick="startCamera()">
+                            <i class="fas fa-camera"></i>
+                            📸 Take Photo
+                        </button>
+                        <button class="btn btn--secondary btn--lg upload-btn" onclick="selectFiles()">
+                            <i class="fas fa-upload"></i>
+                            📁 Upload Photos
+                        </button>
+                    </div>
+                    <input type="file" id="file-input" accept="image/*" multiple style="display: none;" onchange="handleFileSelect(event)">
+                </div>
+            </div>
+
+            <!-- Camera Section -->
+            <div class="camera-section hidden" id="camera-section">
+                <div class="camera-container">
+                    <video id="camera-video" autoplay playsinline></video>
+                    <canvas id="camera-canvas" style="display: none;"></canvas>
+                    <div class="camera-overlay">
+                        <div class="camera-frame"></div>
+                        <p class="camera-instruction">Position your clothing item in the frame</p>
+                    </div>
+                </div>
+                
+                <div class="camera-controls">
+                    <button class="btn btn--outline" onclick="stopCamera()">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </button>
+                    <button class="btn btn--primary btn--lg camera-btn" onclick="capturePhoto()">
+                        <div class="camera-btn-inner">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                    </button>
+                    <button class="btn btn--outline" onclick="switchCamera()" id="switch-camera-btn">
+                        <i class="fas fa-sync-alt"></i>
+                        Switch
+                    </button>
+                </div>
+            </div>
+
+            <!-- Photo Preview -->
+            <div class="photo-preview hidden" id="photo-preview">
+                <div class="preview-card">
+                    <h3>Looking great! ✨</h3>
+                    <div class="preview-image-container">
+                        <img id="preview-image" alt="Clothing item preview">
+                    </div>
+                    
+                    <div class="tagging-section">
+                        <h4>Help us categorize your item:</h4>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Category *</label>
+                            <select class="form-control" id="item-category" required>
+                                <option value="">Select a category...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Item Name</label>
+                            <input type="text" class="form-control" id="item-name" placeholder="e.g., Blue Cotton T-Shirt">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Primary Color</label>
+                            <select class="form-control" id="item-color">
+                                <option value="">Select color...</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Style</label>
+                            <select class="form-control" id="item-style">
+                                <option value="">Select style...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="preview-actions">
+                        <button class="btn btn--outline" onclick="retakePhoto()">
+                            <i class="fas fa-redo"></i>
+                            Try Again
+                        </button>
+                        <button class="btn btn--primary" onclick="saveToWardrobe()" id="save-btn">
+                            <i class="fas fa-plus-circle"></i>
+                            Add to Wardrobe
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Animation -->
+            <div class="success-animation hidden" id="success-animation">
+                <div class="success-content">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Perfect! 🎉</h3>
+                    <p id="success-message">Your item has been added to your wardrobe.</p>
+                    <div class="celebration-sparkles">
+                        <div class="sparkle"></div>
+                        <div class="sparkle"></div>
+                        <div class="sparkle"></div>
+                        <div class="sparkle"></div>
+                        <div class="sparkle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Outfit Generator -->
+    <div id="outfit-generator" class="screen">
+        <header class="app-header">
+            <div class="container">
+                <div class="header-content">
+                    <button class="btn btn--outline btn--sm" onclick="showScreen('dashboard')">
+                        <i class="fas fa-arrow-left"></i>
+                        Back
+                    </button>
+                    <h2>AI Outfit Generator</h2>
+                    <div></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <!-- Empty State -->
+            <div class="empty-state" id="outfit-empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h3>Upload a few clothing items first! 🪄</h3>
+                <p>Then watch the AI create amazing outfit combinations just for you!</p>
+                <button class="btn btn--primary" onclick="showScreen('add-clothes')">
+                    <i class="fas fa-plus-circle"></i>
+                    Add Clothes First
+                </button>
+            </div>
+
+            <!-- Generator Form -->
+            <div class="generator-form hidden" id="generator-form">
+                <div class="form-group">
+                    <label class="form-label">What are your plans today? ✨</label>
+                    <textarea class="form-control" id="day-plans" rows="3" placeholder="Going to work, then dinner with friends..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Weather</label>
+                    <select class="form-control" id="weather-select">
+                        <option>☀️ Sunny</option>
+                        <option>🌤️ Partly Cloudy</option>
+                        <option>🌧️ Rainy</option>
+                        <option>❄️ Cold</option>
+                        <option>🌡️ Hot</option>
+                    </select>
+                </div>
+
+                <button class="btn btn--primary btn--full-width ai-generate-btn" onclick="generateOutfits()">
+                    <i class="fas fa-magic"></i>
+                    Generate Magic Outfits ✨
+                    <div class="ai-sparkle"></div>
+                </button>
+            </div>
+
+            <!-- Loading State -->
+            <div class="ai-loading hidden" id="ai-loading">
+                <div class="loading-animation">
+                    <i class="fas fa-magic rotating"></i>
+                    <p>AI is creating your perfect outfits... ✨</p>
+                </div>
+            </div>
+
+            <!-- Generated Outfits -->
+            <div class="outfit-results hidden" id="outfit-results">
+                <h3>Your Magic Outfit Combinations! 🪄</h3>
+                <div class="outfit-grid" id="outfit-grid">
+                    <!-- Outfit cards will be generated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Wardrobe -->
+    <div id="wardrobe" class="screen">
+        <header class="app-header">
+            <div class="container">
+                <div class="header-content">
+                    <button class="btn btn--outline btn--sm" onclick="showScreen('dashboard')">
+                        <i class="fas fa-arrow-left"></i>
+                        Back
+                    </button>
+                    <h2>My Digital Closet</h2>
+                    <button class="btn btn--outline btn--sm" onclick="showScreen('saved-outfits')">
+                        <i class="fas fa-bookmark"></i>
+                        Saved
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <!-- Empty State -->
+            <div class="empty-state" id="wardrobe-empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-closet"></i>
+                </div>
+                <h3>Your digital closet awaits! 👗✨</h3>
+                <p>Add some clothes to get started and unlock AI-powered outfit magic.</p>
+                <button class="btn btn--primary" onclick="showScreen('add-clothes')">
+                    <i class="fas fa-plus-circle"></i>
+                    Add Your First Item
+                </button>
+            </div>
+
+            <!-- Wardrobe Content -->
+            <div class="wardrobe-content hidden" id="wardrobe-content">
+                <div class="wardrobe-filters">
+                    <input type="text" class="form-control search-input" placeholder="Search your closet..." onkeyup="filterWardrobe()">
+                    <select class="form-control filter-select" onchange="filterWardrobe()">
+                        <option value="">All Categories</option>
+                    </select>
+                </div>
+
+                <div class="wardrobe-grid" id="wardrobe-grid">
+                    <!-- Clothing items will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Saved Outfits -->
+    <div id="saved-outfits" class="screen">
+        <header class="app-header">
+            <div class="container">
+                <div class="header-content">
+                    <button class="btn btn--outline btn--sm" onclick="showScreen('wardrobe')">
+                        <i class="fas fa-arrow-left"></i>
+                        Back
+                    </button>
+                    <h2>Saved Outfits</h2>
+                    <div></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="saved-outfits-grid" id="saved-outfits-grid">
+                <!-- Saved outfits will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Permission Modal -->
+    <div class="modal hidden" id="permission-modal">
+        <div class="modal-overlay" onclick="closePermissionModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="permission-title">Camera Access</h3>
+                <button class="modal-close" onclick="closePermissionModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="permission-icon">
+                    <i class="fas fa-camera" id="permission-icon"></i>
+                </div>
+                <p id="permission-message">SwagAI needs camera access to take photos of your clothes...</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--outline" onclick="closePermissionModal()">Cancel</button>
+                <button class="btn btn--primary" onclick="handlePermissionGrant()" id="grant-permission-btn">Allow Access</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
